@@ -1,0 +1,7 @@
+.vscode
+**/teststuff
+**/testoutput
+**/testinput
+**/__pycache__
+**/ckpt
+**/*.sh
