@@ -5,7 +5,6 @@ run env with ckpt
 
 import argparse, os, gym, torch, time
 from model.actor import Actor
-from model.critic import Critic
 from utils import normalize_state, denormalize_action
 
 if __name__ == '__main__':
@@ -14,13 +13,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-actor_ckpt', type=str, help='actor ckpt file', required=True)
-    parser.add_argument('-critic_ckpt', type=str, help='critic ckpt file', required=True)
 
 
     args = parser.parse_args()
 
     assert os.path.exists(args.actor_ckpt)
-    assert os.path.exists(args.critic_ckpt)
 
 
     device = torch.device('cuda:0')
@@ -32,12 +29,8 @@ if __name__ == '__main__':
     actor.load_state_dict(torch.load(args.actor_ckpt))
     actor.to(device)
 
-    critic = Critic(state_size)
-    critic.load_state_dict(torch.load(args.critic_ckpt))
-    critic.to(device)
 
     actor.eval()
-    critic.eval()
 
 
     run_count = 10
